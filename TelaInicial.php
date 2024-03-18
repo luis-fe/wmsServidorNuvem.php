@@ -224,21 +224,23 @@ include_once("./templates/headers.php");
 }
 
 async function initializeCharts() {
-            const dataInicial = document.getElementById("dataInicial").value.split("-").reverse().join("/");
-            const dataFinal = document.getElementById("dataFinal").value.split("-").reverse().join("/");
+    // Limpa o conteúdo dos elementos onde os gráficos serão renderizados
+    document.getElementById("chart").innerHTML = '';
+    document.getElementById("chartQualidade").innerHTML = '';
 
-            console.log(dataInicial)
+    const dataInicial = document.getElementById("dataInicial").value.split("-").reverse().join("/");
+    const dataFinal = document.getElementById("dataFinal").value.split("-").reverse().join("/");
 
-            const dataMotivos = await fetchData(ApiMotivos, dataInicial, dataFinal);
-            if (dataMotivos) {
-                renderBarChart(dataMotivos);
-            }
+    const dataMotivos = await fetchData(ApiMotivos, dataInicial, dataFinal);
+    if (dataMotivos) {
+        renderBarChart(dataMotivos);
+    }
 
-            const dataQualidade = await fetchData(ApiQualidade, dataInicial, dataFinal);
-            if (dataQualidade) {
-                renderDonutChart(dataQualidade);
-            }
-        }
+    const dataQualidade = await fetchData(ApiQualidade, dataInicial, dataFinal);
+    if (dataQualidade) {
+        renderDonutChart(dataQualidade);
+    }
+}
 
 document.addEventListener("DOMContentLoaded", function() {
     const today = new Date();
