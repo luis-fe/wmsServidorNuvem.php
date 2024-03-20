@@ -8,10 +8,10 @@
         $password = $_POST["password"];
     
         $Resposta = fazerChamadaApi($username, $password);
-        
-        if ($Resposta['status'] == 1) {
+        print_r($Resposta);
+        if ($Resposta['status'] == true) {
             session_start();
-            $_SESSION['usuario'] = $Resposta['Usuario'];
+            $_SESSION['usuario'] = $username;
 
             header("Location: TelaInicial.php");
             exit();
@@ -20,7 +20,6 @@
         }
     }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
