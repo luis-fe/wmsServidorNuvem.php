@@ -6,9 +6,8 @@ include_once("./templates/headers.php");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="<?= $BASE_URL ?>/css/TelaInicial.css">
-    <link rel="stylesheet" href="<?= $BASE_URL ?>css/GerenciamentoLinhas.css">
-    <link rel="stylesheet" href="<?= $BASE_URL ?>/css/GerenciamentoUsuarios.css">
+    <link rel="stylesheet" href="./css/TelaInicial.css">
+    <link rel="stylesheet" href=".css/GerenciamentoLinhas.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -100,8 +99,25 @@ include_once("./templates/headers.php");
             </form>
         </div>
     </div>
+
+    <div id="modalSuccess" class="modal">
+    <div class="modal-contentSucess">
+        <p>Cadastrado com sucesso!</p>
+        <i class="bi bi-check-circle-fill"></i>
+    </div>
+</div>
+<div id="modalError" class="modal">
+    <div class="modal-contentError">
+        <p>Erro</p>
+        <i class="bi bi-x-circle-fill"></i>
+    </div>
+</div>
 </body>
 <script>
+
+const modalSuccess = document.getElementById('modalSuccess');
+const modalError = document.getElementById('modalError');
+
     const btnFecharRotina = document.getElementById("FecharRotina");
     function fecharRotina() {
         window.location.replace("TelaInicial.php");
@@ -358,9 +374,17 @@ function preencherOpcoesBloqueadas() {
         }
 }
 
+function fecharModal(element) {
+    element.style.display = 'none';
+}
 
 
-
+function openModal(Modal) {
+    Modal.style.display = 'flex';
+    setTimeout(() => {
+        fecharModal(Modal);
+    }, 3000);
+}
 
 //-----------------------------------------------------FUNÇÃO PARA CADASTRAR NOVA LINHA--------------------------------------------------------//
 
@@ -389,16 +413,18 @@ async function CadastrarLinha() {
 
         if (response.ok) {
             const data = await response.json();
-            console.log('DEU CERTO');
+            openModal(modalSuccess);
             ModalNewLinha.style.display = 'none';
             await ObterLinhas();
         } else {
             throw new Error('Erro No Retorno');
+            openModal(modalError);
             ModalNewLinha.style.display = 'none';
             await ObterLinhas();
         }
     } catch (error) {
         console.error(error);
+        openModal(modalError);
         ModalNewLinha.style.display = 'none';
         await ObterLinhas();
     }
@@ -431,8 +457,7 @@ async function EditarLinhas() {
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data)
-            alert('Atualizado com Sucesso')
+            openModal(modalSuccess);
             ModalEditarUsuario.style.display =  'none';
             EditarOperador1.innerHTML;
             EditarOperador2.innerHTML;
@@ -441,13 +466,14 @@ async function EditarLinhas() {
             
         } else {
             throw new Error('Erro ao obter os dados da API');
+            openModal(modalError);
             ModalEditarUsuario.style.display =  'none';
             await ObterLinhas();  
         
         }
     } catch (error) {
         console.error(error);
-        alert('Procure o Administrador');
+        openModal(modalError);
         ModalEditarUsuario.style.display =  'none';
         await ObterLinhas();  
     }
