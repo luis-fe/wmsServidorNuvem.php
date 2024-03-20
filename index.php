@@ -30,7 +30,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="image"><img src="<?= $BASE_URL ?>/imagens/IconeMpl.jpg" alt=""></div>
+        <div class="image"><img src="<?= $BASE_URL ?>imagens/IconeMpl.jpg" alt=""></div>
         <div class="Login">
             <form method="POST" action="">
                 <h3>Bem Vindo!</h3>
