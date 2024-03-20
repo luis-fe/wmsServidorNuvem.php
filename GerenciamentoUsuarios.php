@@ -6,8 +6,8 @@ include_once("./templates/headers.php");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="<?= $BASE_URL ?>/css/TelaInicial.css">
-    <link rel="stylesheet" href="<?= $BASE_URL ?>css/GerenciamentoUsuarios.css">
+    <link rel="stylesheet" href="./css/TelaInicial.css">
+    <link rel="stylesheet" href="./css/GerenciamentoUsuarios.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -44,7 +44,7 @@ include_once("./templates/headers.php");
 
     <div class="modal" id="editModal">
     <div class="modal-content">
-    <span class="close-modaledit" onclick="fecharModal('editModal')">&times;</span>
+    <span class="close-modaledit" onclick="fecharModal(editModal)">&times;</span>
         <h2>Editar Usuário</h2>
         <form id="editForm" >
         <div class="Inputs">
@@ -68,7 +68,7 @@ include_once("./templates/headers.php");
             </select>
             </div>
             <div class="buttonedit">
-            <button type="submit">Salvar</button>
+            <button type="submit" id="SalvarEditUser">Salvar</button>
             </div>
             
         </form>
@@ -143,8 +143,11 @@ const Token = "a40016aabcx9";
 const ModalEdit = document.getElementById('editModal');
 const newModal = document.getElementById('newModal');
 const ButtonAddUser = document.getElementById('addUser');
+const ButtonEditUser = document.getElementById('SalvarEditUser');
 const modalSuccess = document.getElementById('modalSuccess');
 const modalError = document.getElementById('modalError');
+
+
 
 function fecharModal(element) {
     element.style.display = 'none';
@@ -168,6 +171,8 @@ function abrirModalNew() {
 }
 
 ButtonAddUser.addEventListener('click', abrirModalNew);
+
+
 
 async function obterUsuarios() {
     try {
@@ -210,6 +215,7 @@ function criarTabelaUsuarios(listaUsuarios) {
         columns: [
             { data: 'codigo' },
             { data: 'nome' },
+
             { data: 'situacao' },
             { data: 'funcao' },
             {
@@ -310,12 +316,66 @@ async function cadastroUser() {
     }
 }
 
+async function EditarUsuarios() {
+    const InputEditar = document.getElementById('matriculaUsuario');
+    const InputUsuario = document.getElementById('nomeUsuario');
+    const InputFuncao = document.getElementById('Funcao');
+    const InputSituacao = document.getElementById('Situacao');
+    console.log(InputEditar.value)
+
+    dados = {
+        "codigo": InputEditar.value,
+        "nome": InputUsuario.value,
+        "funcao": InputFuncao.value,
+        "situacao": InputSituacao.value,
+    }
+  
+    try {
+        const response = await fetch(`${ApiGetUsuarios}/${InputEditar.value}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': Token
+            },
+            body: JSON.stringify(dados),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            ModalEdit.style.display =  'none';
+            openModal(modalSuccess);
+            await obterUsuarios();  
+            
+        } else {
+            throw new Error('Erro ao obter os dados da API');
+            ModalEdit.style.display =  'none';
+            openModal(modalError);
+            await obterUsuarios();  
+        
+        }
+    } catch (error) {
+        console.error(error);
+        ModalEdit.style.display =  'none';
+        openModal(modalError);
+        await obterUsuarios();  
+    
+    }
+};
+
 document.getElementById('newForm').addEventListener('submit', function (event) {
     // Prevenir o envio padrão do formulário
     event.preventDefault();
 
     // Chamar a função cadastroUser
     cadastroUser();
+});
+
+document.getElementById('editForm').addEventListener('submit', function (event) {
+    // Prevenir o envio padrão do formulário
+    event.preventDefault();
+
+    // Chamar a função cadastroUser
+    EditarUsuarios();
 });
 
 // Chame a função para obter e exibir os dados após o carregamento da página
