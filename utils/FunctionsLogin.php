@@ -2,7 +2,7 @@
 // FunctionsLogin.php
 
 function fazerChamadaApi($username, $password) {
-    $apiUrl = "http://192.168.0.183:8000/pcp/api/UsuarioSenha?codigo={$username}&senha={$password}";
+    $apiUrl = "http://192.168.0.183:5000/api/UsuarioSenha?codigo={$username}&senha={$password}";
 
     // Inicializa a sessão cURL
     $ch = curl_init($apiUrl);
@@ -11,7 +11,7 @@ function fazerChamadaApi($username, $password) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json',
-        'Authorization: a44pcp22',
+        'Authorization: a40016aabcx9',
     ]);
 
     // Executa a requisição e obtém a resposta
