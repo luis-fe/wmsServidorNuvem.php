@@ -46,9 +46,18 @@
                     </div>
                 </a>
                 <ul>
-                    <li><a  href="<?=$BASE_URL ?>ListaOps.php">LISTA DE OP'S</a></li>
-                    <li><a  href="<?=$BASE_URL ?>CadastroUsuario.php">2ª QUALIDADE</a></li>
+                    <li><a  href="ListaOps.php">LISTA DE OP'S</a></li>
+                    <li><a  href="TelaInicial.php">2ª QUALIDADE</a></li>
+                    <li><a  href="TelaCaixas.php">GERENCIAMENTO DE CAIXAS</a></li>
                 </ul>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <a href="Logout.php">
+                <i class="bi bi-power" style="color: red; font-size: 20px; font-weight: bold;"></i>
+                    SAIR
+                </a>
             </li>
         </ul>
     </div>
