@@ -4,8 +4,9 @@ include_once("./templates/headers.php");
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="<?= $BASE_URL ?>css/TelaInicial.css">
     <link rel="stylesheet" href="<?= $BASE_URL ?>css/GerenciamentoUsuarios.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
