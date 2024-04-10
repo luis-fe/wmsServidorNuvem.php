@@ -3,9 +3,9 @@ include_once("./utils/session.php");
 include_once("./templates/headers.php");
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.29.0/dist/apexcharts.min.js"></script>
