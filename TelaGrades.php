@@ -3,9 +3,9 @@ include_once("./utils/session.php");
 include_once("./templates/headers.php");
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="<?= $BASE_URL ?>css/TelaInicial.css">
     <link rel="stylesheet" href="<?= $BASE_URL ?>css/ListaOps.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -181,6 +181,56 @@ include_once("./templates/headers.php");
         .fechar:hover {
             color: #555;
         }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 20px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-buttons button.primary {
+            background-color: green;
+            color: white;
+        }
+
+        .modal-buttons button.secondary {
+            background-color: red;
+            color: white;
+        }
     </style>
 </head>
 
@@ -231,11 +281,22 @@ include_once("./templates/headers.php");
                         <select id="Operador3" name="Operador3" required>
                             <option value="">Selecione o Operador 3</option>
                         </select>
+                        <input type="text" placeholder="Quantidade" style="display: none" id="InputQuantidade">
 
                         <button type="submit" id="salvarEdicaoUsuario">Salvar</button>
                     </form>
                 </div>
             </div>
+</div>
+
+<div class="modal-overlay" id="modal">
+    <div class="modal-content">
+        <h2>Op Será Dividida?</h2>
+        <div class="modal-buttons">
+            <button class="primary" onclick="confirmar()">Sim</button>
+            <button class="secondary" onclick="fecharModal()">Não</button>
+        </div>
+    </div>
 </div>
 </body>
 
@@ -572,9 +633,10 @@ async function ApiGetUsuarios() {
             const ButtonCancelar1 = document.getElementById('buttonCancelar2');
             const NomesDaLinha = document.getElementById('NomesDaLinha');
             const AtualizarOps = document.getElementById('ButtonAtualizarOps');
-
-
-
+            const InputQuantidade = document.getElementById('InputQuantidade');
+            
+            
+           
 
 
             ButtonConfirmar.addEventListener('click', () => {
@@ -582,18 +644,19 @@ async function ApiGetUsuarios() {
                 if(SelectLinha.value === 'NADA'){
                     alert('Seleciona uma Linha antes de Prosseguir')
                 } else{
-                NomesDaLinha.style.display = 'block';
-                ButtonConfirmar.style.display = 'none';
-                ButtonCancelar.style.display = 'none';
-                
+                    NomesDaLinha.style.display = 'block';
+                    ButtonConfirmar.style.display = 'none';
+                    ButtonCancelar.style.display = 'none';
                 }
             });
+
 
             ButtonCancelar.addEventListener('click', () => {
                 NomesDaLinha.style.display = 'none';
                 ModalDefinirLinha.style.display = 'none';
                 const SelectLinha = document.getElementById('SelectLinha');
                 SelectLinha.innerHTML = '';
+                InputQuantidade.value = '';
             });
 
 
@@ -603,19 +666,38 @@ async function ApiGetUsuarios() {
                 ModalDefinirLinha.style.display = 'none';
                 const SelectLinha = document.getElementById('SelectLinha');
                 SelectLinha.innerHTML = '';
+                InputQuantidade.value = '';
             });
 
+            function abrirModal() {
+                document.getElementById("modal").style.display = "flex";
+            }
 
-            ButtonFinalizarOp.addEventListener('click', async () => {
+            async function fecharModal() {
                 ModalDefinirLinha.style.display = 'block';
                 ButtonConfirmar.style.display = 'flex';
                 ButtonCancelar.style.display = 'flex';
+                InputQuantidade.style.display = 'none';
                 await ApiGetUsuarios()
                 await ApiLinhas(ApiConsultarLinhas);
+                document.getElementById("modal").style.display = "none";
+            }
+
+            async function confirmar() {
+                ModalDefinirLinha.style.display = 'block';
+                ButtonConfirmar.style.display = 'flex';
+                ButtonCancelar.style.display = 'flex';
+                InputQuantidade.style.display = 'block';
+                await ApiGetUsuarios()
+                await ApiLinhas(ApiConsultarLinhas);
+                document.getElementById("modal").style.display = "none";
+            }
 
 
-
+            ButtonFinalizarOp.addEventListener('click', async () => {
+                abrirModal();
             });
+
 
             AtualizarPagina.addEventListener('click', () => {
                 const numeroOP = localStorage.getItem('numeroOP');
@@ -644,11 +726,14 @@ async function ApiGetUsuarios() {
     const SelectOperador2 = document.getElementById('Operador2');
     const SelectOperador3 = document.getElementById('Operador3');
     const dados = {
+        "linha": SelectLinha.value,
         "numeroop": numeroOP,
         "operador1": SelectOperador1.value,
         "operador2": SelectOperador2.value,
-        "operador3": SelectOperador3.value
+        "operador3": SelectOperador3.value,
+        "qtd": InputQuantidade.value
     };
+    console.log(dados)
 
     try {
         const response = await fetch(ApiSalvarOperadores, {
@@ -666,12 +751,14 @@ async function ApiGetUsuarios() {
 
             // Limpa as opções existentes e adiciona a opção padrão
             SelectLinha.innerHTML = '';
+            
         
 
             // Atualiza a tabela e demais elementos conforme necessário
             NomesDaLinha.style.display = 'none';
             await Api(numeroOP);
             ModalDefinirLinha.style.display = 'none';
+            InputQuantidade.value = '';
         } else {
             throw new Error('Erro No Retorno');
         }
