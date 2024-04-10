@@ -4,10 +4,11 @@ include_once("./templates/headers.php");
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <link rel="stylesheet" href="<?= $BASE_URL ?>css/TelaInicial.css">
-    <link rel="stylesheet" href="<?= $BASE_URL ?>css/TelaCaixas.css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/TelaInicial.css">
+    <link rel="stylesheet" href="./css/TelaCaixas.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script type="text/javascript" charset="utf8"
