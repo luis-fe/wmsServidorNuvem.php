@@ -4,8 +4,9 @@ include_once("./templates/headers.php");
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="<?= $BASE_URL ?>css/TelaInicial.css">
     <link rel="stylesheet" href="<?= $BASE_URL ?>css/GerenciamentoLinhas.css">
     <link rel="stylesheet" href="<?= $BASE_URL ?>css/GerenciamentoUsuarios.css">
