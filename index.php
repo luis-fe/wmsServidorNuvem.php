@@ -20,16 +20,17 @@
         }
     }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="<?= $BASE_URL ?>css/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <title>Portal PCP</title>
+    <title>Portal da Qualidade</title>
 </head>
 <body>
     <div class="container">
-        <div class="image"><img src="<?= $BASE_URL ?>imagens/IconeMpl.jpg" alt=""></div>
+        <div class="image"><img src="<?= $BASE_URL ?>/imagens/IconeMpl.jpg" alt=""></div>
         <div class="Login">
             <form method="POST" action="">
                 <h3>Bem Vindo!</h3>
