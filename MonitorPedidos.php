@@ -9,6 +9,8 @@ include_once("./templates/cabecalho.php");
     <link rel="stylesheet" href="./css/ContainerWms.css">
     <link rel="stylesheet" href="./css/Modais.css">
     <link rel="stylesheet" href="./css/Distribuicao.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
 </head>
 <style>
     .modalLoading {
@@ -164,6 +166,7 @@ include_once("./templates/cabecalho.php");
     <div class="Container">
         <div class="title">
             <h3>MONITOR DE PEDIDOS</h3>
+            <i class="bi bi-download" title="Exportar Excel" id="Exportar" style="color: black"></i>
             <i class="bi bi-funnel-fill" title="Filtros" id="Configuracoes" style="color: black; display: none"></i>
             <i class="bi bi-gear-fill" title="Fechar" id="Configuracoes" style="color: black"></i>
             <i class="bi bi-x-square-fill" title="Fechar" id="FecharRotina" style="color: black"></i>
@@ -504,10 +507,33 @@ include_once("./templates/cabecalho.php");
         
         });  
 
+        function exportarParaExcel() {
+    // Selecionar a tabela e obter os dados
+    const tabela = document.getElementById('TabelaPedidos');
+    
+    // Criar um objeto Excel
+    const wb = XLSX.utils.table_to_book(tabela, {sheet:"Sheet JS"});
+    
+    // Salvar o arquivo Excel
+    XLSX.writeFile(wb, 'dados_pedidos.xlsx');
+}
+
+
 
       document.getElementById('Configuracoes').addEventListener('click', async () => {
         AbrirModal('ModalPercentuais');
-      })
+      });
+
+
+      document.getElementById('Exportar').addEventListener('click', async () => {
+        exportarParaExcel();
+      });
+
+      
+
+
+
+      
         
     </script>
 </body>
