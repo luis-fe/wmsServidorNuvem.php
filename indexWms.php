@@ -37,7 +37,7 @@
 <body>
     <section>
         <div class="form-box">
-            <img src="./Imagens/Icone Wms.png" alt="">
+            <img src="./imagens/Icone Wms.png" alt="">
             <div class="form-value">
                 <form action="" method="POST">
                     <div class="inputbox">
