@@ -6,7 +6,7 @@ include_once("./templates/cabecalho.php");
 <html lang="pt-BR">
 
 <head>
-    <link rel="stylesheet" href="./css/Wms.css">
+    <link rel="stylesheet" href="./css/ContainerWms.css">
     <link rel="stylesheet" href="./css/Modais.css">
 </head>
 <style>
