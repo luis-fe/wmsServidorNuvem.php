@@ -345,6 +345,14 @@ include_once("./templates/cabecalho.php");
         async function PecasFaltantes(API) {
             const PedidosSelecionados = capturarItensSelecionados();
             mostrarModalLoading();
+            if (PedidosSelecionados.length === 0) {
+                        ocultarModalLoading();
+                        Swal.fire({
+                        title: "Nenhum Pedido Selecionado",
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        }); } else {
             try {
                 const response = await fetch(`${API}${PedidosSelecionados}`, {
                     method: 'GET',
@@ -357,20 +365,21 @@ include_once("./templates/cabecalho.php");
                 if (response.ok) {
                     const data = await response.json();
                     const detalhamentoPedido = data[0]["5- Detalhamento dos Sku:"];
-                    const Filtro = detalhamentoPedido.filter(item => item["endereco"] === "Não Reposto");
-    
-                    const listaPeçasFaltantes = document.getElementById("ListaPeçasFaltantes");
-                    listaPeçasFaltantes.innerHTML = ''; // Limpa o conteúdo atual
-    
-                    Filtro.forEach(item => {
-                        const listItem = document.createElement("li");
-                        listItem.textContent = `${item["referencia"]} / ${item["tamanho"]} / ${item["cor"]} - ${item["reduzido"]}`;
-                        listaPeçasFaltantes.appendChild(listItem);
-           
-                    });
-                    AbrirModal('ModalFaltantes');
-                    document.getElementById('TituloModal').textContent = `Peças Faltantes no Pedido: ${PedidosSelecionados}`;
-                    ocultarModalLoading();
+                
+                        const Filtro = detalhamentoPedido.filter(item => item["endereco"] === "Não Reposto");
+                        const listaPeçasFaltantes = document.getElementById("ListaPeçasFaltantes");
+                        listaPeçasFaltantes.innerHTML = ''; // Limpa o conteúdo atual
+
+                        Filtro.forEach(item => {
+                            const listItem = document.createElement("li");
+                            listItem.textContent = `${item["referencia"]} / ${item["tamanho"]} / ${item["cor"]} - ${item["reduzido"]}`;
+                            listaPeçasFaltantes.appendChild(listItem);
+                        });
+                        
+                        AbrirModal('ModalFaltantes');
+                        document.getElementById('TituloModal').textContent = `Peças Faltantes no Pedido: ${PedidosSelecionados}`;
+                        ocultarModalLoading();
+                    
                 } else {
                     throw new Error('Erro no retorno');
                     ocultarModalLoading();
@@ -391,6 +400,7 @@ include_once("./templates/cabecalho.php");
                         timer: 3000,
                     });
             }
+        }
         };
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -891,12 +901,6 @@ function marcarLinhasDuplicadas() {
             }
         });  
 
-
-
-
-
-
-        
     </script>
 </body>
 
