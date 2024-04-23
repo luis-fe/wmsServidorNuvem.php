@@ -31,6 +31,7 @@ include_once("./templates/cabecalho.php");
         max-height: 78%;
         padding: auto;
         margin: auto;
+        overflow: auto;
     }
 
 
