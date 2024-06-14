@@ -57,6 +57,8 @@ include_once("../../../templates/Loading.php")
                         <th scope="col">Descrição</th>
                         <th scope="col">Numero Op</th>
                         <th scope="col">Pçs</th>
+                        <th scope="col">Descrição Lote</th>
+                        <th scope="col">Data Entrada Op</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,7 +100,7 @@ include_once("../../../templates/Loading.php")
                                 <th>Cod Reduzido</th>
                                 <th>EPC</th>
                                 <th>Nome</th>
-                                <!-- Add other headers as needed -->
+
                             </tr>
                         </thead>
                         <tbody>
