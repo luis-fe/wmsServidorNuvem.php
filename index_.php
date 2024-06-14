@@ -33,12 +33,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Wms</title>
+    <title>Grupo Mpl</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-
+    <link rel="website icon" type="png" href="./templates/imagens/ImagemMplSemFundo.png">
     <link rel="stylesheet" href="./css/styleLogin.css"> 
 </head>
 
@@ -48,7 +48,7 @@
         <div class="row fixed-top" style="min-width: 100%; margin-bottom: 100px; margin-top: 10px">
             <div class="col-12 text-center">
                 <div class="logo-small">
-                    <img src="./templates/imagens/Icone Wms.png" alt="" class="img" style="width: 200px">
+                    <img src="./templates/imagens/ImagemMplSemFundo.png" alt="" class="img" style="width: 200px">
                 </div>
             </div>
         </div>
