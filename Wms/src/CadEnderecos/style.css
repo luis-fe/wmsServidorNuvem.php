@@ -15,7 +15,8 @@
     overflow: auto;
     background-color: var(--branco);
     padding: 20px;
-    max-height: calc(100% - 50px); /* Ajuste da altura para ocupar a altura restante da janela */
+    max-height: calc(98% - 50px);
+    max-height: calc(100% - 50px); 
 }
 
 
