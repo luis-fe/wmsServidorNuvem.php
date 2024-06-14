@@ -137,6 +137,8 @@ function CriarTabelaFila(ListaFila, itensPorPagina) {
             {
                 data: 'pcs'
             },
+            {data: 'descOP'},
+            {data: 'dataFim'}
         ],
         language: {
             paginate: {
